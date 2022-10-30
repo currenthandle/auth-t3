@@ -5,7 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 //import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
 import { env } from '../../../env/server.mjs'
-//import { prisma } from '../../../server/db/client'
+import { prisma } from '../../../server/db/client'
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
@@ -42,6 +42,13 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials /*, req*/) {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials?.email,
+          },
+        })
+        console.log('user', user)
+        return user
         console.log('credentials', credentials)
         if (credentials?.email === 't@t.com') {
           console.log('inside if')
