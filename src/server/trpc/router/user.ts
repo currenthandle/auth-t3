@@ -3,6 +3,15 @@ import { z } from 'zod'
 import { router, publicProcedure } from '../trpc'
 
 export const userRouter = router({
+  users: publicProcedure.query(async ({ ctx }) => {
+    try {
+      const users = await ctx.prisma.user.findMany()
+      return users
+    } catch (e) {
+      console.error(e)
+      return null // return []
+    }
+  }),
   signUp: publicProcedure
     .input(
       z.object({
