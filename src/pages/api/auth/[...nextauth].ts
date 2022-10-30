@@ -18,11 +18,12 @@ export const authOptions: NextAuthOptions = {
   //   },
   // },
   // Configure one or more authentication providers
-  adapter: PrismaAdapter(prisma),
+  //adapter: PrismaAdapter(prisma),
 
   // pages: {
   //   // signIn: '/auth/login',
-  //   signIn: '/login',
+  //   //signIn: '/login',
+  //   //newUser: '/signup',
   // },
   providers: [
     DiscordProvider({
@@ -41,7 +42,9 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials /*, req*/) {
+        console.log('credentials', credentials)
         if (credentials?.email === 't@t.com') {
+          console.log('inside if')
           const user = {
             id: '3',
             email: 't@t.com',
