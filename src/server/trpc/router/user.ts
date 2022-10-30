@@ -11,12 +11,21 @@ export const userRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      const user = await ctx.prisma.user.create({
-        data: {
-          email: input.email,
-          password: input.password,
-        },
-      })
-      return user
+      console.log('IN CREATE MUTATION', input)
+      try {
+        const user = await ctx.prisma.user.create({
+          data: {
+            email: input.email,
+            password: input.password,
+          },
+        })
+
+        console.log('user', user)
+
+        return user
+      } catch (error) {
+        console.log(error)
+        return null
+      }
     }),
 })
