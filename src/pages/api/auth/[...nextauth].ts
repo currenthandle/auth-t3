@@ -48,7 +48,15 @@ export const authOptions: NextAuthOptions = {
               email: credentials?.email,
             },
           })
-          return user ? user : null
+          if (user) {
+            if (user.password === credentials?.password) {
+              return user
+            }
+            throw new Error('Invalid password')
+
+            ///('Wrong password')
+          }
+          return null
         } catch (error) {
           console.log(error)
           return null
