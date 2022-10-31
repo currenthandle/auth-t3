@@ -51,14 +51,13 @@ export const authOptions: NextAuthOptions = {
             },
           })
           if (user) {
-            // feels hacky...
+            // feels hacky, did this to corret TS error @ bcrypt.compare line on line 60...
             if (!credentials?.password || !user.password) {
               return null
             }
             const hash = user?.password
             const password = credentials?.password
             const result = await bcrypt.compare(password, hash)
-            console.log('result', result)
             if (result) {
               return user
             }
