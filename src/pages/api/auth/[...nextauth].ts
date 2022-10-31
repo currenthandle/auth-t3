@@ -1,6 +1,8 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth'
 import DiscordProvider from 'next-auth/providers/discord'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import bcrypt from 'bcrypt'
+
 // Prisma adapter for NextAuth, optional and can be removed
 //import { PrismaAdapter } from '@next-auth/prisma-adapter'
 
@@ -49,7 +51,15 @@ export const authOptions: NextAuthOptions = {
             },
           })
           if (user) {
-            if (user.password === credentials?.password) {
+            // feels hacky...
+            if (!credentials?.password || !user.password) {
+              return null
+            }
+            const hash = user?.password
+            const password = credentials?.password
+            const result = await bcrypt.compare(password, hash)
+            console.log('result', result)
+            if (result) {
               return user
             }
             throw new Error('Invalid password')
