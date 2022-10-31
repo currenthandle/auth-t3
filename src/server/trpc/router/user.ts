@@ -1,6 +1,9 @@
 import { z } from 'zod'
+import bcrypt from 'bcrypt'
 
 import { router, publicProcedure } from '../trpc'
+
+const SALT_ROUNDS = 10
 
 export const userRouter = router({
   users: publicProcedure.query(async ({ ctx }) => {
@@ -25,7 +28,7 @@ export const userRouter = router({
         const user = await ctx.prisma.user.create({
           data: {
             email: input.email,
-            password: input.password,
+            password: await bcrypt.hash(input.password, SALT_ROUNDS),
           },
         })
 
