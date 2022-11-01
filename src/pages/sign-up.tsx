@@ -1,3 +1,4 @@
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import type { SyntheticEvent } from 'react'
 import { useState } from 'react'
@@ -5,9 +6,24 @@ import { trpc } from '../utils/trpc'
 
 export default function SignUp() {
   const router = useRouter()
+  //router.push('/')
   const { mutate /*, error */ } = trpc.user.signUp.useMutation({
     onSuccess: () => {
-      router.push('/')
+      signIn('credentials', {
+        email: authState.email,
+        password: authState.password,
+        redirect: false,
+      }).then((resp) => {
+        if (resp?.ok) {
+          router.push('/')
+        } else {
+          setPageState((old) => ({
+            ...old,
+            processing: false,
+            error: resp?.error || 'Unknown error',
+          }))
+        }
+      })
     },
     onError: (err) => {
       console.error(err)
@@ -39,6 +55,12 @@ export default function SignUp() {
       ...authState,
       // redirect: false
     })
+    //console.log('handleSignUp result', result)
+    // signIn('Credentials', {
+    //   email: email,
+    //   password: password,
+    //   //callbackUrl: '/',
+    // })
   }
   return (
     <div>
