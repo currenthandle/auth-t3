@@ -6,7 +6,6 @@ import { trpc } from '../utils/trpc'
 
 export default function SignUp() {
   const router = useRouter()
-  //router.push('/')
   const { mutate /*, error */ } = trpc.user.signUp.useMutation({
     onSuccess: () => {
       signIn('credentials', {
@@ -40,8 +39,6 @@ export default function SignUp() {
 
   const handleFieldChange = (e: SyntheticEvent) => {
     const target = e.target as typeof e.target & {
-      //email: { value: string }
-      //password: { value: string }
       id: string
       value: string
     }
@@ -55,12 +52,6 @@ export default function SignUp() {
       ...authState,
       // redirect: false
     })
-    //console.log('handleSignUp result', result)
-    // signIn('Credentials', {
-    //   email: email,
-    //   password: password,
-    //   //callbackUrl: '/',
-    // })
   }
   return (
     <div>

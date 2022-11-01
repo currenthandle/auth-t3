@@ -32,8 +32,6 @@ export const userRouter = router({
           },
         })
 
-        console.log('user', user)
-
         return user
       } catch (error) {
         console.log(error)

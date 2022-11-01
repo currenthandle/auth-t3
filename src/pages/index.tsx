@@ -7,7 +7,6 @@ import { trpc } from '../utils/trpc'
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: 'from tRPC' })
-
   return (
     <>
       <Head>
@@ -84,6 +83,13 @@ const AuthShowcase: React.FC = () => {
       >
         {sessionData ? 'Sign out' : 'Sign in'}
       </button>
+      {!sessionData && (
+        <Link href='/sign-up'>
+          <button className='rounded-md border border-black bg-violet-50 px-4 py-2 text-xl shadow-lg hover:bg-violet-100'>
+            Sign Up
+          </button>
+        </Link>
+      )}
     </div>
   )
 }
