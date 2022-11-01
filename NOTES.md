@@ -7,9 +7,10 @@ Great progress today!
 
 ## Oct 31 Looking Ahead
 
-1. use bcrypt to hash passwords and compare passwords
-2. Explore the useSession call and getStaticProps approach to make sure users are authed.
-   2b. custom sign in page
-3. Play around with permission gated rendering
-4. Pick a simple app idea (shopping list, todo list, chat, calendar, places I've visted, vision board, habbit tracker, etc.)
-5. Start building out application routes and UI from our app
+- <s>use bcrypt to hash passwords and compare passwords</s> DONE
+- <s>auth user with session token</s> DONE
+- Explore the useSession call and getStaticProps approach to make sure users are authed.
+- bcustom sign in page
+- Play around with permission gated rendering
+- Pick a simple app idea (shopping list, todo list, chat, calendar, places I've visted, vision board, habbit tracker, etc.)
+- Start building out application routes and UI from our app
